@@ -22,13 +22,10 @@ FROM student s LEFT JOIN student_course sc on s.id = sc.studentId
 WHERE score IS NULL
 
 # 5.Query all SQL with grades 
--- 本题我的理解是查询所有有成绩的学生信息，若有误，烦请告知
-SELECT *
-FROM student s 
-WHERE s.id IN(
-SELECT sc.studentId
-FROM student_course sc 
-)
+SELECT s.id AS id, s.`name` AS name,
+   COUNT(sc.courseId) AS course_num, SUM(sc.score) AS score_sum
+FROM student s JOIN student_course sc ON s.id = sc.studentId
+GROUP BY s.id
 
 # 6.Inquire about the information of classmates who have numbered 1 and also studied the course numbered 2
 SELECT a.id,a.name,a.age,a.sex
